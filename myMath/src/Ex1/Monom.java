@@ -58,9 +58,6 @@ public class Monom implements function{
 	{
 		return this.get_coefficient() == 0;
 	}
-	// ***************** add your code below **********************
-
-
 	public Monom(String s) 
 	{
 		s=s.replace('X', 'x');
@@ -202,8 +199,6 @@ public class Monom implements function{
 			}
 		}
 	}
-
-
 	public void add(Monom m)
 	{
 		if(this._power==m._power)
@@ -236,21 +231,24 @@ public class Monom implements function{
 		ans = this._coefficient+"x"+"^"+this._power;
 		return ans;
 	}
-
-
-	public boolean equals (Monom m) {
-		if((Math.abs(this._coefficient-m._coefficient)<=Monom.EPSILON) && (Math.abs(this._power-m._power)<=Monom.EPSILON)) {
+	@Override
+	public boolean equals (Object m) 
+	{
+		if(m instanceof Monom)
+		{
+			Monom m2 = (Monom) m;
+		if((Math.abs(this._coefficient-m2._coefficient)<=Monom.EPSILON) && (Math.abs(this._power-m2._power)<=Monom.EPSILON)) {
 			return true;
 		}
-		if(this._coefficient==0&&m._coefficient==0)
+		if(this._coefficient==0&&m2._coefficient==0)
 			return true;
-		if (this._coefficient==m._coefficient&&this._power==m._power)
+		if (this._coefficient==m2._coefficient&&this._power==m2._power)
 			return true;
+		}
 		else
 			return false;
+		return false;
 	}
-	// you may (always) add other methods.
-
 	//****************** Private Methods and Data *****************
 
 

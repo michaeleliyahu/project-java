@@ -113,7 +113,6 @@ public class Polynom implements Polynom_able{
 		Comparator<Monom>sortMonom = new Monom_Comperator();
 		allMonoms.sort(sortMonom);
 	}
-
 	@Override
 	public void substract(Polynom_able p1) {
 		if(this.equals(p1)) {
@@ -127,7 +126,6 @@ public class Polynom implements Polynom_able{
 			this.add(p1);
 		}
 	}
-
 	public void multiply(Polynom_able p1) {
 		Iterator<Monom> itr = p1.iteretor();
 		Polynom temp = new Polynom();
@@ -151,7 +149,6 @@ public class Polynom implements Polynom_able{
 		}
 		allMonoms=temp.allMonoms;
 	}
-
 	@Override
 	public boolean equals(Object p1) {
 		if(p1 instanceof Polynom_able)
@@ -183,13 +180,11 @@ public class Polynom implements Polynom_able{
 		else
 			return false;
 	}
-
 	@Override
 	public boolean isZero() {
 		// TODO Auto-generated method stub
 		return allMonoms.get(0).get_coefficient() == 0;
 	}
-
 	@Override
 	public double root(double x0, double x1, double eps) {
 		double temp;
@@ -222,7 +217,6 @@ public class Polynom implements Polynom_able{
 		}
 		return rootFinal;
 	}
-
 	@Override
 	public Polynom_able copy() {
 		if(this.allMonoms.size()>0) {
@@ -235,7 +229,6 @@ public class Polynom implements Polynom_able{
 		}
 		else return null;
 	}
-
 	@Override
 	public Polynom_able derivative() {
 		// TODO Auto-generated method stub
@@ -289,7 +282,6 @@ public class Polynom implements Polynom_able{
 		}
 		return m;
 	}
-
 	@Override
 	public double area(double x0, double x1, double eps) {
 		double sum = 0;
@@ -308,7 +300,6 @@ public class Polynom implements Polynom_able{
 		// TODO Auto-generated method stub
 		return allMonoms.iterator();
 	}
-
 	@Override
 	public void multiply(Monom m1) {
 		for (int i = 0; i < allMonoms.size(); i++) {
@@ -320,5 +311,4 @@ public class Polynom implements Polynom_able{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

@@ -5,9 +5,37 @@ public class ComplexFunction implements complex_function {
 	function left;
 	Operation op;
 
+	ComplexFunction(String op, function left,function right)
+	{
+		if(this.right!=null) 
+		{
+			this.right = right;
+		}
+		switch (op.toLowerCase()) {
+		case "plus":   this.op=Operation.Plus;
+		break;
+		case "times":  this.op=Operation.Times;
+		break;
+		case "divid":  this.op=Operation.Divid;
+		break;
+		case "max":	   this.op=Operation.Max;
+		break;
+		case "min":	   this.op=Operation.Min;
+		break;
+		case "comp":    this.op=Operation.Comp;	
+		break;
+		case "none":	this.op=Operation.None;
+		break;
+		
+
+		default:    this.op=Operation.Error;
+			break;
+		}
+	}
 
 	@Override
 	public double f(double x) {
+
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -26,8 +54,11 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void plus(function f1) {
-		// TODO Auto-generated method stub
-
+		if(this.right!=null) 
+		{
+				this.left = new ComplexFunction(this.op, this.left,this right);
+		}
+		this.right=f1;
 	}
 
 	@Override

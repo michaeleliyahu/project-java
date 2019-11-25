@@ -4,7 +4,12 @@ public class ComplexFunction implements complex_function {
 	function right;
 	function left;
 	Operation op;
-
+	ComplexFunction(function left)
+	{
+		this.left=left;
+		this.op=null;
+	}
+	
 	ComplexFunction(String op, function left,function right)
 	{
 		if(this.right!=null) 

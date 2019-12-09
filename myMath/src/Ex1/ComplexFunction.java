@@ -9,6 +9,14 @@ public class ComplexFunction implements complex_function {
 		this.left=left;
 		this.op=null;
 	}
+	public ComplexFunction()
+	{
+		this.left=null;
+		this.right=null;
+		this.op=null;
+	}
+
+	
 	
 	public ComplexFunction(String op, function left,function right)
 	{
@@ -21,6 +29,10 @@ public class ComplexFunction implements complex_function {
 		case "plus":   this.op=Operation.Plus;
 		break;
 		case "times":  this.op=Operation.Times;
+		break;
+		case "mul":  this.op=Operation.Times;
+		break;
+		case "div":  this.op=Operation.Divid;
 		break;
 		case "divid":  this.op=Operation.Divid;
 		break;
@@ -43,7 +55,7 @@ public class ComplexFunction implements complex_function {
 		{
 			this.right = right;
 		}*/
-		switch (op.toString().toLowerCase()) {
+		switch (this.op.toString().toLowerCase()) {
 	case "plus":   return this.right.f(x)+this.left.f(x);
 	case "times":  return this.right.f(x)*this.left.f(x);
 	case "divid":  return this.right.f(x) / this.left.f(x);
@@ -79,12 +91,54 @@ public class ComplexFunction implements complex_function {
 	@Override
 	public String toString() 
 	{
+		String k = "";
 		if(this.right==null) 
 		{
+			if(this.left==null) {
+				return "Empty function!";
+			}
 			return this.left.toString();
 		}
-		String temp = this.op.toString()+"("+this.left.toString()+","+this.right.toString()+")";
+		k = checkOp();
+		String temp = k+"("+this.left.toString()+","+this.right.toString()+")";
 		return temp;
+	}
+	private String checkOp() {
+		
+		if(this.op==Operation.Plus) 
+		{
+			return "plus";
+		}
+		if(this.op==Operation.Times) 
+		{
+			return "mul";
+		}
+		if(this.op==Operation.Divid) 
+		{
+			return "div";
+		}
+		if(this.op==Operation.Max) 
+		{
+			return "max";
+		}
+		if(this.op==Operation.Min) 
+		{
+			return "min";
+		}
+		if(this.op==Operation.Comp) 
+		{
+			return "comp";
+		}
+		if(this.op==Operation.None) 
+		{
+			return "none";
+		}
+		if(this.op==Operation.Error) 
+		{
+			return "error";
+		}
+		return "error";
+		
 	}
 
 	@Override
@@ -138,8 +192,8 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		function temp = new ComplexFunction(this.checkOp() , this.left , this.right); 
+		return temp;
 	}
 
 	@Override
@@ -149,6 +203,7 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Plus;
 	}
 
 	@Override
@@ -158,6 +213,7 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Times;
 	}
 
 	@Override
@@ -167,6 +223,8 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Divid;
+
 	}
 
 	@Override
@@ -176,6 +234,8 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Max;
+
 	}
 
 	@Override
@@ -185,6 +245,8 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Min;
+
 	}
 
 	@Override
@@ -194,6 +256,7 @@ public class ComplexFunction implements complex_function {
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
 		this.right=f1;
+		this.op=Operation.Comp;
 	}
 
 	@Override
@@ -212,8 +275,7 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public Operation getOp() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.op;
 	}
 
 }

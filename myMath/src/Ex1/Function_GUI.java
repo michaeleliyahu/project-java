@@ -13,7 +13,7 @@ import java.util.Iterator;
 
 public class Function_GUI implements functions 
 {
-	ArrayList<function> arrF = new ArrayList<function>();
+	public ArrayList<function> arrF = new ArrayList<function>();
 	@Override
 	public boolean add(function arg0) {
 		return arrF.add(arg0);

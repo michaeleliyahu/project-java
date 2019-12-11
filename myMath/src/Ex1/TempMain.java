@@ -53,13 +53,32 @@ public class TempMain {
 	    Function_GUI read = new Function_GUI(); 
 	    try {
 			read.initFromFile("text.txt");
+			read.saveToFile("C:\\Users\\dvirt\\OneDrive\\שולחן העבודה\\Ex1\\text3.txt");
 		} catch (IOException e3) {
 			e3.printStackTrace();
 		}
 	    for(int i = 0; i<read.arrF.size();i++) {
 	    	System.out.println(read.arrF.get(i).toString());
 	    }
-	    //itr
+	    
+	   
+//	    Polynom a = new Polynom("x");
+//		Polynom b = new Polynom("x^2");
+//		Polynom c = new Polynom("3");
+//		Polynom d = new Polynom("x^3+5");
+//	    Function_GUI save = new Function_GUI(); 
+//	    save.add(a);
+//	    save.add(b);
+//	    save.add(c);
+//	    save.add(d);
+//	    try {
+//			save.saveToFile("text2.txt");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+
 
 	}
 	      

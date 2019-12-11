@@ -3,7 +3,9 @@ package Ex1;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -111,10 +113,25 @@ public class Function_GUI implements functions
 	@Override
 	public void saveToFile(String file) throws IOException {
 		//1) 2)
+		FileWriter fr = new FileWriter(file);
+		String template = " f(x)= " ;
+		int index = 0;
+		try {
+			while(index<arrF.size()) {
+				//0) 1) 2)
+				String ans =index+")" + template+arrF.get(index).toString() +"\n";
+//				ans = ans.replaceAll("\\s", "");
+				fr.write(ans);
+				index++;
+			}
+			fr.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("could not save file");
+		}
 		
-		//
-		String template = "f(x)=" ;
-		template+=arrF.get(0).toString();
+		
 	}
 
 	@Override

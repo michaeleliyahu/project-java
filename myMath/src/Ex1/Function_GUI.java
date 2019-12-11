@@ -199,11 +199,26 @@ public class Function_GUI implements functions
 
 		
 		// make color randoms
+		Color[] allColor = new Color[8];
+		allColor[0] = Color.green;
+		allColor[1] = Color.pink;
+		allColor[2] = Color.blue;
+		allColor[3] = Color.cyan;
+		allColor[4] = Color.darkGray;
+		allColor[5] = Color.magenta;
+		allColor[6] = Color.red;
+		allColor[7] = Color.orange;
+
+		
+		
 		//get f.(x0)
-		StdDraw.setPenColor(Color.RED);
+		StdDraw.setPenRadius(0.003);
 
 		for (int i = 0; i < y.length; i++) 
 		{
+
+			StdDraw.setPenColor(allColor[i%allColor.length]);
+
 			for (int j = 0; j < y[i].length; j++) {
 				
 				y[i][j]= arrF.get(i).f(x[j]);
@@ -225,7 +240,6 @@ public class Function_GUI implements functions
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
 
 	}
 

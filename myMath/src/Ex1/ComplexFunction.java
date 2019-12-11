@@ -100,36 +100,36 @@ public class ComplexFunction implements complex_function {
 			return this.left.f(x);
 		}
 		switch (this.op.toString().toLowerCase()) {
-	case "plus":   return this.right.f(x)+this.left.f(x);
-	case "times":  return this.right.f(x)*this.left.f(x);
-	case "divid":  return this.right.f(x) / this.left.f(x);
+	case "plus":   return right.f(x)+left.f(x);
+	case "times":  return right.f(x)*left.f(x);
+	case "divid":  return left.f(x) / right.f(x);
 	case "max":	   
-      if(this.right.f(x)>this.left.f(x)) 
+      if(right.f(x)>left.f(x)) 
       {
-    	  return this.right.f(x);
+    	  return right.f(x);
       }
       else {
-    	  return this.left.f(x); 
+    	  return left.f(x); 
       }
 	case "min":	   //this.op=Operation.Min;
-    if(this.right.f(x)<this.left.f(x)) 
+    if(right.f(x)<left.f(x)) 
     {
-  	  return this.right.f(x);
+  	  return right.f(x);
     }
     else {
-  	  return this.left.f(x); 
+  	  return left.f(x); 
     }
 
 	case "comp":   
-		if(this.right!=null) {
-			return this.right.f(this.left.f(x));
+		if(right!=null) {
+			return right.f(left.f(x));
 		}
 		else 
 		{
-			this.left.f(x);      // to check if to throw error
+			left.f(x);      // to check if to throw error
 		}
-	case "none":	return this.left.f(x);
-	default:    return this.left.f(x);       // to fix
+	case "none":	return left.f(x);
+	default:    return left.f(x);       // to fix
 		}
 	}
 	@Override

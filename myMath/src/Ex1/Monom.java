@@ -60,141 +60,149 @@ public class Monom implements function{
 	}
 	public Monom(String s) 
 	{
-		s=s.replace('X', 'x');
-		int xloc = (s.indexOf('x'));
-
-		if (xloc==-1)
+		s = s.replaceAll("\\s", "");
+		
+		if(s.length()==0)
 		{
-			this._power=0;
-			if(s.length()<=1)
+			Monom m = new Monom(ZERO);
+		}
+		else {
+			s=s.replace('X', 'x');
+			int xloc = (s.indexOf('x'));
+			
+			if (xloc==-1)
 			{
-				if(s.length()==0)	this._coefficient=1;
-				if(s.length()==1&&s.charAt(0)=='-')	this._coefficient=-1;
-				if (s.charAt(0)>='0'&&s.charAt(0)<='9')	this._coefficient=Double.parseDouble(s);
-			}
-			else
-			{
-				int i = 0;
-				if(s.charAt(i)!= '-'&&(s.charAt(i)<'0'||s.charAt(i)>'9'))
+				this._power=0;
+				if(s.length()<=1)
 				{
-					throw new RuntimeException("coefficient not proper ");
+					if(s.length()==0)	this._coefficient=1;
+					if(s.length()==1&&s.charAt(0)=='-')	this._coefficient=-1;
+					if (s.charAt(0)>='0'&&s.charAt(0)<='9')	this._coefficient=Double.parseDouble(s);
 				}
 				else
 				{
+					int i = 0;
+					if(s.charAt(i)!= '-'&&(s.charAt(i)<'0'||s.charAt(i)>'9'))
+					{
+						throw new RuntimeException("coefficient not proper ");
+					}
+					else
+					{
+						int count = 0 ;
+						int count2 = 0;
+						while (i<s.length()) 
+						{
+							if(s.charAt(i)=='-')
+							{
+								if(i!=0) 
+								{
+									throw new RuntimeException("coefficient not proper ");
+								}
+								count++;
+								if((s.length()==1||(s.charAt(i+1)<'0'||s.charAt(i+1)>'9')||count>1))
+								{
+									throw new RuntimeException("coefficient not proper ");
+								}
+							}
+							if (s.charAt(i)>='0'&&s.charAt(i)<='9')
+							{
+								if(s.length()-i>1&&s.charAt(i+1)!='.'&&(s.charAt(i+1)<'0'||s.charAt(i+1)>'9'))
+								{
+									throw new RuntimeException("coefficient not proper ");
+								}
+							}
+							if(s.charAt(i)=='.')
+							{
+								count2++;
+								if(s.length()>1-i&&(s.charAt(i+1)<'0'&&s.charAt(i+1)>'9')||count2>1)
+								{
+									throw new RuntimeException("coefficient not proper ");
+								}
+							}
+							i++;					
+						}
+						this._coefficient=Double.parseDouble(s);
+					}
+				}
+			}
+			else
+			{
+				String beforex = s.substring(0, xloc);
+				String afterx = s.substring(xloc+1, s.length());
+
+				//beforx
+				if(beforex.length()<=1)
+				{
+					if(beforex.length()==0)	this._coefficient=1;
+					if(beforex.length()==1&&beforex.charAt(0)=='-')	this._coefficient=-1;
+					if (s.charAt(0)>='0'&&s.charAt(0)<='9')	this._coefficient=Double.parseDouble(beforex);
+				}
+				else 
+				{
+					int i = 0;
+					if(beforex.charAt(i)!= '-'&&(beforex.charAt(i)<'0'||beforex.charAt(i)>'9')&&beforex.charAt(i)!='x')
+					{
+						throw new RuntimeException("coefficient not proper ");
+					}
 					int count = 0 ;
 					int count2 = 0;
-					while (i<s.length()) 
-					{
-						if(s.charAt(i)=='-')
+					while (i<beforex.length()) {
+						if(beforex.charAt(i)=='-')
 						{
 							if(i!=0) 
 							{
 								throw new RuntimeException("coefficient not proper ");
 							}
 							count++;
-							if((s.length()==1||(s.charAt(i+1)<'0'||s.charAt(i+1)>'9')||count>1))
+							if((beforex.length()==1||(beforex.charAt(i+1)<'0'||beforex.charAt(i+1)>'9')||count>1))
 							{
 								throw new RuntimeException("coefficient not proper ");
 							}
 						}
-						if (s.charAt(i)>='0'&&s.charAt(i)<='9')
+						if (beforex.charAt(i)>='0'&&beforex.charAt(i)<='9')
 						{
-							if(s.length()-i>1&&s.charAt(i+1)!='.'&&(s.charAt(i+1)<'0'||s.charAt(i+1)>'9'))
+							if(beforex.length()-i>1&&beforex.charAt(i+1)!='.'&&(beforex.charAt(i+1)<'0'||beforex.charAt(i+1)>'9'))
 							{
 								throw new RuntimeException("coefficient not proper ");
 							}
 						}
-						if(s.charAt(i)=='.')
+						if(beforex.charAt(i)=='.')
 						{
 							count2++;
-							if(s.length()>1-i&&(s.charAt(i+1)<'0'&&s.charAt(i+1)>'9')||count2>1)
+							if(beforex.length()>1-i&&(beforex.charAt(i+1)<'0'&&beforex.charAt(i+1)>'9')||count2>1)
 							{
 								throw new RuntimeException("coefficient not proper ");
 							}
 						}
-						i++;					
+						i++;
 					}
-					this._coefficient=Double.parseDouble(s);
+					this._coefficient=Double.parseDouble(beforex);
 				}
-			}
-		}
-		else
-		{
-			String beforex = s.substring(0, xloc);
-			String afterx = s.substring(xloc+1, s.length());
-
-			//beforx
-			if(beforex.length()<=1)
-			{
-				if(beforex.length()==0)	this._coefficient=1;
-				if(beforex.length()==1&&beforex.charAt(0)=='-')	this._coefficient=-1;
-				if (s.charAt(0)>='0'&&s.charAt(0)<='9')	this._coefficient=Double.parseDouble(beforex);
-			}
-			else 
-			{
-				int i = 0;
-				if(beforex.charAt(i)!= '-'&&(beforex.charAt(i)<'0'||beforex.charAt(i)>'9')&&beforex.charAt(i)!='x')
+				//afterx
+				int i = 0 ;
+				if (afterx.length()==0)
 				{
-					throw new RuntimeException("coefficient not proper ");
-				}
-				int count = 0 ;
-				int count2 = 0;
-				while (i<beforex.length()) {
-					if(beforex.charAt(i)=='-')
-					{
-						if(i!=0) 
-						{
-							throw new RuntimeException("coefficient not proper ");
-						}
-						count++;
-						if((beforex.length()==1||(beforex.charAt(i+1)<'0'||beforex.charAt(i+1)>'9')||count>1))
-						{
-							throw new RuntimeException("coefficient not proper ");
-						}
-					}
-					if (beforex.charAt(i)>='0'&&beforex.charAt(i)<='9')
-					{
-						if(beforex.length()-i>1&&beforex.charAt(i+1)!='.'&&(beforex.charAt(i+1)<'0'||beforex.charAt(i+1)>'9'))
-						{
-							throw new RuntimeException("coefficient not proper ");
-						}
-					}
-					if(beforex.charAt(i)=='.')
-					{
-						count2++;
-						if(beforex.length()>1-i&&(beforex.charAt(i+1)<'0'&&beforex.charAt(i+1)>'9')||count2>1)
-						{
-							throw new RuntimeException("coefficient not proper ");
-						}
-					}
-					i++;
-				}
-				this._coefficient=Double.parseDouble(beforex);
-			}
-			//afterx
-			int i = 0 ;
-			if (afterx.length()==0)
-			{
-				this._power=1;
-			}
-			else
-			{
-				if (afterx.length()==1||afterx.charAt(i)!='^')
-				{
-					throw new RuntimeException("power not proper ");
+					this._power=1;
 				}
 				else
 				{
-					int f = 1;
-					while (f<=afterx.length())
+					if (afterx.length()==1||afterx.charAt(i)!='^')
 					{
-						if (afterx.charAt(i)<'0'&&afterx.charAt(i)>'9')
-						{
-							throw new RuntimeException("power not proper ");				
-						}
-						f++;
+						throw new RuntimeException("power not proper ");
 					}
-					this._power=Integer.parseInt(afterx.substring(1));
+					else
+					{
+						int f = 1;
+						while (f<=afterx.length())
+						{
+							if (afterx.charAt(i)<'0'&&afterx.charAt(i)>'9')
+							{
+								throw new RuntimeException("power not proper ");				
+							}
+							f++;
+						}
+						this._power=Integer.parseInt(afterx.substring(1));
+					}
 				}
 			}
 		}
@@ -237,13 +245,13 @@ public class Monom implements function{
 		if(m instanceof Monom)
 		{
 			Monom m2 = (Monom) m;
-		if((Math.abs(this._coefficient-m2._coefficient)<=Monom.EPSILON) && (Math.abs(this._power-m2._power)<=Monom.EPSILON)) {
-			return true;
-		}
-		if(this._coefficient==0&&m2._coefficient==0)
-			return true;
-		if (this._coefficient==m2._coefficient&&this._power==m2._power)
-			return true;
+			if((Math.abs(this._coefficient-m2._coefficient)<=Monom.EPSILON) && (Math.abs(this._power-m2._power)<=Monom.EPSILON)) {
+				return true;
+			}
+			if(this._coefficient==0&&m2._coefficient==0)
+				return true;
+			if (this._coefficient==m2._coefficient&&this._power==m2._power)
+				return true;
 		}
 		else
 			return false;

@@ -18,7 +18,7 @@ import Ex1.Monom;
  *
  */
 public class Polynom implements Polynom_able{
-	ArrayList<Monom> allMonoms;
+	public ArrayList<Monom> allMonoms;
 	/**
 	 * Zero (empty polynom)
 	 */
@@ -32,6 +32,18 @@ public class Polynom implements Polynom_able{
 	 * @param s: is a string represents a Polynom
 	 */
 	public Polynom(String s) {
+		if(s.length()==0)
+		{
+			
+			Monom m = new Monom(0,0); 
+			allMonoms = new ArrayList<Monom>();
+			allMonoms.add(m);
+		
+//			throw new RuntimeException("Your string is empty or null");
+		}
+		else
+		{
+			s = s.replaceAll("\\s", "");	
 		int i = 0;
 		boolean check = false;
 		boolean firstRun=false;
@@ -42,12 +54,18 @@ public class Polynom implements Polynom_able{
 			temp = "-" ;
 			i++;
 		}
+		//		if(s.charAt(0)=='+')
+		//		{
+		//			temp = "+" ;
+		//			i++;
+		//		}
 		while(i<s.length()) {
 			if(s.charAt(i)!='+' &&  s.charAt(i)!='-')
 			{
 				temp = temp.concat(s.charAt(i)+"");
 				check = true;
 			}
+			//+0.1x^5 -1.2999999999999998x +5.0
 			if ((s.charAt(i)=='+' ||  s.charAt(i)=='-')  )  
 			{
 
@@ -60,12 +78,13 @@ public class Polynom implements Polynom_able{
 			}
 			i++;
 		}
-
+		
 		if(!temp.equals("")) {
 			allMonoms.add(new Monom(temp));
 		}
 		Comparator<Monom>sortMonom = new Monom_Comperator();
 		allMonoms.sort(sortMonom);
+		}
 	}
 	@Override
 	public double f(double x) {
@@ -154,28 +173,28 @@ public class Polynom implements Polynom_able{
 		if(p1 instanceof Polynom_able)
 		{
 			Polynom_able p2 = (Polynom_able) p1;
-		Iterator<Monom> itrP1 = p2.iteretor();
-		int count = 0;
-		Iterator<Monom> itrMonom = allMonoms.iterator();
-		while(itrP1.hasNext())
-		{
-			Monom mP1 = itrP1.next();
-			count ++;
-			if(!itrMonom.hasNext())
+			Iterator<Monom> itrP1 = p2.iteretor();
+			int count = 0;
+			Iterator<Monom> itrMonom = allMonoms.iterator();
+			while(itrP1.hasNext())
+			{
+				Monom mP1 = itrP1.next();
+				count ++;
+				if(!itrMonom.hasNext())
+				{
+					return false;
+				}
+				Monom mMonom = itrMonom.next();
+				if(!mP1.equals(mMonom))
+				{
+					return false;
+				}
+			}
+			if(count != allMonoms.size())
 			{
 				return false;
 			}
-			Monom mMonom = itrMonom.next();
-			if(!mP1.equals(mMonom))
-			{
-				return false;
-			}
-		}
-		if(count != allMonoms.size())
-		{
-			return false;
-		}
-		return true;
+			return true;
 		}
 		else
 			return false;

@@ -16,8 +16,6 @@ public class ComplexFunction implements complex_function {
 		this.op=null;
 	}
 
-	
-	
 	public ComplexFunction(String op, function left,function right)
 	{
 		if(right!=null) 
@@ -48,13 +46,59 @@ public class ComplexFunction implements complex_function {
 			break;
 		}
 	}
-
+	@Override
+	public boolean equals (Object x) 
+	{
+		if(x instanceof Polynom )
+		{
+		Polynom a=(Polynom)x;
+		int count = 0;
+		for (int i = 1; i <= 10; i++) {
+			if(this.f(i)==a.f(i))          
+			{
+				count++;
+			}
+			if (count==10) {
+				return true;
+			}
+		}
+		}
+		if(x instanceof Monom)
+		{
+		Monom b=(Monom)x;
+		int count = 0;
+		for (int i = 1; i <= 10; i++) {
+			if(this.f(i)==b.f(i))          
+			{
+				count++;
+			}
+			if (count==10) {
+				return true;
+			}
+		}
+		}
+		if(x instanceof ComplexFunction)
+		{
+			int count = 0;
+			ComplexFunction c=(ComplexFunction)x;
+			for (int i = 1; i <= 10; i++) {
+				if(this.f(i)==c.f(i))          
+				{
+					count++;
+				}
+				if (count==10) {
+					return true;
+				}
+			}
+		}
+		        return false;
+	}
+	
 	@Override
 	public double f(double x) {
-		/*if(this.right!=null) 
-		{
-			this.right = right;
-		}*/
+		if(this.right==null) {
+			return this.left.f(x);
+		}
 		switch (this.op.toString().toLowerCase()) {
 	case "plus":   return this.right.f(x)+this.left.f(x);
 	case "times":  return this.right.f(x)*this.left.f(x);
@@ -67,7 +111,7 @@ public class ComplexFunction implements complex_function {
       else {
     	  return this.left.f(x); 
       }
-	case "min":	   this.op=Operation.Min;
+	case "min":	   //this.op=Operation.Min;
     if(this.right.f(x)<this.left.f(x)) 
     {
   	  return this.right.f(x);
@@ -85,7 +129,7 @@ public class ComplexFunction implements complex_function {
 			this.left.f(x);      // to check if to throw error
 		}
 	case "none":	return this.left.f(x);
-	default:    return this.right.f(x);       // to fix
+	default:    return this.left.f(x);       // to fix
 		}
 	}
 	@Override
@@ -187,9 +231,6 @@ public class ComplexFunction implements complex_function {
 			
 			return i-1;
 	}
-
-	
-
 	@Override
 	public function copy() {
 		function temp = new ComplexFunction(this.checkOp() , this.left , this.right); 
@@ -250,7 +291,7 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
-	public void comp(function f1) {
+	public void comp(function f1) {      
 		if(this.right!=null) 
 		{
 				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);

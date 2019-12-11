@@ -47,4 +47,6 @@ public interface complex_function extends function{
 	 * @return
 	 */
 	public Operation getOp();
+	
+	boolean equals(Object x);
 }

@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class Function_GUI implements functions 
 {
 	public ArrayList<function> arrF = new ArrayList<function>();
@@ -240,6 +244,34 @@ public class Function_GUI implements functions
 
 	@Override
 	public void drawFunctions(String json_file) {
+		String min_x = "";
+		String max_x = "";
+		String min_y = "";
+		String max_y = "";
+		long res = 0;
+		JSONParser file = new JSONParser();
+		try 
+		{
+			Object obj = file.parse(new FileReader(json_file));
+			JSONObject jsonObject = (JSONObject) obj;
+			long width = (long) jsonObject.get("Width");
+			long height = (long) jsonObject.get("Height");
+            JSONArray json_ry = (JSONArray)jsonObject.get("Range_Y");
+            JSONArray json_rx = (JSONArray)jsonObject.get("Range_X");
+            min_y = json_ry.get(0).toString();
+            max_y = json_ry.get(1).toString();
+            min_x = json_rx.get(0).toString();
+            max_x = json_rx.get(1).toString();
+            res = (long)jsonObject.get("Resolution");
+            Range ry = new Range(Integer.parseInt(min_y), Integer.parseInt(max_y));
+            Range rx = new Range(Integer.parseInt(min_x), Integer.parseInt(max_x));
+            drawFunctions((int)width, (int)height, rx, ry, (int)res);
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			System.out.println("could not read json file");
+		}
 
 	}
 

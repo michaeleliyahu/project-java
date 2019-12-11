@@ -112,7 +112,7 @@ class Functions_GUITest {
 			cf3.mul(new Polynom(s3[i]));
 			
 		}
-
+		System.out.println("    ");
 		ComplexFunction cf = new ComplexFunction("Plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x +1"),cf3);
 		cf4.plus(new Monom("2"));

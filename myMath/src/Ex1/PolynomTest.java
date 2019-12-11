@@ -156,14 +156,14 @@ public class PolynomTest {
 		Polynom p1 = new Polynom("0");
 		Polynom_able p2 = new Polynom();
 		Polynom p3 = new Polynom("5+3x^2+5x");
-		p2 = p1.copy();
+		p2 = (Polynom_able) p1.copy();
 		p1.add(p3);
 		System.out.println();
 		System.out.println("****test6 : add polynom + polynom function****"+"\n"+"polynom:"+p2+"                   polynom2:"+p3+"              results:"+p1);
 		Polynom_able p4 = new Polynom();
 		Polynom p5 = new Polynom("7x^2+5x^3+5x+3");
 		Polynom p6 = new Polynom("5+3x^2+5x");
-		p4 = p3.copy();
+		p4 = (Polynom_able) p3.copy();
 
 		p6.add(p5);	
 		System.out.println("Polynom"+p4+"      polynom2:"+p5+"       results:"+p6);
@@ -216,8 +216,8 @@ public class PolynomTest {
 		}
 
 		Polynom p3 = new Polynom("3x^2+5x+6");
-		Polynom_able p4=p3.copy();
-		Polynom_able p2=p1.copy();
+		Polynom_able p4=(Polynom_able) p3.copy();
+		Polynom_able p2=(Polynom_able) p1.copy();
 		System.out.println("polynom:"+p1.toString()+"      result: "+p2.toString());
 		System.out.println("polynom:"+p3.toString()+"                     result: "+p4.toString());
 	}

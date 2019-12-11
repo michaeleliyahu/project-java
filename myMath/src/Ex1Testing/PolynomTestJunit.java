@@ -144,8 +144,8 @@ void testCopy()
 {
 Polynom p1 = new Polynom("5+7x+2x^2");
 Polynom p2 = new Polynom("3x^2+5x+6");
-Polynom_able p3=p1.copy();
-Polynom_able p4=p2.copy();
+Polynom_able p3=(Polynom_able) p1.copy();
+Polynom_able p4=(Polynom_able) p2.copy();
 assertEquals(p1.toString(),p3.toString());
 assertEquals(p2.toString(),p4.toString());
 }

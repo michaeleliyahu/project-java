@@ -6,6 +6,10 @@ public class ComplexFunction implements complex_function {
 	Operation op;
 	public ComplexFunction(function left)
 	{
+		if(left==null)
+		{
+			throw new RuntimeException("left function cannot be null");
+		}
 		this.left=left;
 		this.op=null;
 	}
@@ -15,35 +19,91 @@ public class ComplexFunction implements complex_function {
 		this.right=null;
 		this.op=null;
 	}
+	//vadims constructor
+	public ComplexFunction(String str)
+	{
+		str = str.replaceAll("\\s+","");
+		function f = initFromString(str);
+		if(f instanceof ComplexFunction)
+		{
+			ComplexFunction cf = (ComplexFunction)f;
+			this.left = cf.left.copy();
+			this.right = cf.right.copy();
+			this.op = cf.getOp();
+		}
+		else
+		{
+			if(f instanceof Polynom)
+			{
+				Polynom p = (Polynom)f;
+				this.left = p.copy();
+				this.op = Operation.None;
+			}
+			else
+			{
+				throw new RuntimeException("The string is not vaild");
+			}
+		}
+	}
+	//vadim's constructor
+	public ComplexFunction(Operation op,function left,function right)
+	{
+		if(op == null)
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
+		if(left!= null)
+		{
+			this.left = left.initFromString(left.toString());
+		}
+		else
+		{
+			throw new RuntimeException("The Operation is not vaild");
+		}
+		if(right != null)
+		{
+			this.right = right.initFromString(right.toString());
+		}
+		this.op = op;
+	}
 
 	public ComplexFunction(String op, function left,function right)
 	{
 		if(right!=null) 
 		{
-			this.right = right;
+			function rt = right.copy();
+			this.right = rt;	
 		}
-		this.left=left;
-		switch (op.toLowerCase()) {
-		case "plus":   this.op=Operation.Plus;
-		break;
-		case "times":  this.op=Operation.Times;
-		break;
-		case "mul":  this.op=Operation.Times;
-		break;
-		case "div":  this.op=Operation.Divid;
-		break;
-		case "divid":  this.op=Operation.Divid;
-		break;
-		case "max":	   this.op=Operation.Max;
-		break;
-		case "min":	   this.op=Operation.Min;
-		break;
-		case "comp":    this.op=Operation.Comp;	
-		break;
-		case "none":	this.op=Operation.None;
-		break;
-		default:    this.op=Operation.Error;
+		
+		function lft = left.copy();
+		this.left=lft;
+		if(op==null)
+		{
+			throw new RuntimeException("invalid operation");
+		}
+		
+			switch (op.toLowerCase()) {
+			case "plus":   this.op=Operation.Plus;
 			break;
+			case "times":  this.op=Operation.Times;
+			break;
+			case "mul":  this.op=Operation.Times;
+			break;
+			case "div":  this.op=Operation.Divid;
+			break;
+			case "divid":  this.op=Operation.Divid;
+			break;
+			case "max":	   this.op=Operation.Max;
+			break;
+			case "min":	   this.op=Operation.Min;
+			break;
+			case "comp":    this.op=Operation.Comp;	
+			break;
+			case "none":	this.op=Operation.None;
+			break;
+			default:    this.op=Operation.Error;
+			break;
+			
 		}
 	}
 	@Override
@@ -51,31 +111,31 @@ public class ComplexFunction implements complex_function {
 	{
 		if(x instanceof Polynom )
 		{
-		Polynom a=(Polynom)x;
-		int count = 0;
-		for (int i = 1; i <= 10; i++) {
-			if(this.f(i)==a.f(i))          
-			{
-				count++;
+			Polynom a=(Polynom)x;
+			int count = 0;
+			for (int i = 1; i <= 10; i++) {
+				if(this.f(i)==a.f(i))          
+				{
+					count++;
+				}
+				if (count>=8) {
+					return true;
+				}
 			}
-			if (count==10) {
-				return true;
-			}
-		}
 		}
 		if(x instanceof Monom)
 		{
-		Monom b=(Monom)x;
-		int count = 0;
-		for (int i = 1; i <= 10; i++) {
-			if(this.f(i)==b.f(i))          
-			{
-				count++;
+			Monom b=(Monom)x;
+			int count = 0;
+			for (int i = 1; i <= 10; i++) {
+				if(this.f(i)==b.f(i))          
+				{
+					count++;
+				}
+				if (count>=8) {
+					return true;
+				}
 			}
-			if (count==10) {
-				return true;
-			}
-		}
 		}
 		if(x instanceof ComplexFunction)
 		{
@@ -86,50 +146,50 @@ public class ComplexFunction implements complex_function {
 				{
 					count++;
 				}
-				if (count==10) {
+				if (count>=8) {
 					return true;
 				}
 			}
 		}
-		        return false;
+		return false;
 	}
-	
+
 	@Override
 	public double f(double x) {
 		if(this.right==null) {
 			return this.left.f(x);
 		}
 		switch (this.op.toString().toLowerCase()) {
-	case "plus":   return right.f(x)+left.f(x);
-	case "times":  return right.f(x)*left.f(x);
-	case "divid":  return left.f(x) / right.f(x);
-	case "max":	   
-      if(right.f(x)>left.f(x)) 
-      {
-    	  return right.f(x);
-      }
-      else {
-    	  return left.f(x); 
-      }
-	case "min":	   //this.op=Operation.Min;
-    if(right.f(x)<left.f(x)) 
-    {
-  	  return right.f(x);
-    }
-    else {
-  	  return left.f(x); 
-    }
+		case "plus":   return right.f(x)+left.f(x);
+		case "times":  return right.f(x)*left.f(x);
+		case "divid":  return left.f(x) / right.f(x);
+		case "max":	   
+			if(right.f(x)>left.f(x)) 
+			{
+				return right.f(x);
+			}
+			else {
+				return left.f(x); 
+			}
+		case "min":	   //this.op=Operation.Min;
+			if(right.f(x)<left.f(x)) 
+			{
+				return right.f(x);
+			}
+			else {
+				return left.f(x); 
+			}
 
-	case "comp":   
-		if(right!=null) {
-			return right.f(left.f(x));
-		}
-		else 
-		{
-			left.f(x);      // to check if to throw error
-		}
-	case "none":	return left.f(x);
-	default:    return left.f(x);       // to fix
+		case "comp":   
+			if(right!=null) {
+				return right.f(left.f(x));
+			}
+			else 
+			{
+				left.f(x);      // to check if to throw error
+			}
+		case "none":	return left.f(x);
+		default:    return left.f(x);       // to fix
 		}
 	}
 	@Override
@@ -148,7 +208,7 @@ public class ComplexFunction implements complex_function {
 		return temp;
 	}
 	private String checkOp() {
-		
+
 		if(this.op==Operation.Plus) 
 		{
 			return "plus";
@@ -182,11 +242,11 @@ public class ComplexFunction implements complex_function {
 			return "error";
 		}
 		return "error";
-		
+
 	}
 
 	@Override
-	
+
 	public function initFromString(String s) 
 	{
 		String temp = "";
@@ -195,18 +255,19 @@ public class ComplexFunction implements complex_function {
 		int last = s.lastIndexOf(',');
 		if(firstBrackt!=-1) 
 		{
-		last=findIndex(s,firstBrackt); 	
-		op = s.substring(0, firstBrackt);
-		String tempRight = s.substring(last+1,s.length()-1);
-		String tempLeft = s.substring(firstBrackt+1,last);
-		function right = initFromString(tempRight);
-		function left = initFromString(tempLeft);
-		function x = new  ComplexFunction(op,left,right);
-		return x;
+			last=findIndex(s,firstBrackt); 	
+			op = s.substring(0, firstBrackt);
+			String tempRight = s.substring(last+1,s.length()-1);
+			String tempLeft = s.substring(firstBrackt+1,last);
+			function right = initFromString(tempRight);
+			function left = initFromString(tempLeft);
+			function x = new  ComplexFunction(op,left,right);
+			return x;
 		}
 		else 
 		{
-			function left = new ComplexFunction(new Polynom(s));
+			//function left = new ComplexFunction(new Polynom(s));
+			function left = new Polynom(s);
 			return left;
 		}
 	}
@@ -223,13 +284,13 @@ public class ComplexFunction implements complex_function {
 				counterBrackt++;
 			}
 			if (s.charAt(i)==',') 
-             {
+			{
 				counter2++;
-			 }
-				i++;
+			}
+			i++;
 		}
-			
-			return i-1;
+
+		return i-1;
 	}
 	@Override
 	public function copy() {
@@ -239,64 +300,82 @@ public class ComplexFunction implements complex_function {
 
 	@Override
 	public void plus(function f1) {
+
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Plus;
 	}
 
 	@Override
 	public void mul(function f1) {
+		
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Times;
 	}
 
 	@Override
 	public void div(function f1) {
+
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Divid;
 
 	}
 
 	@Override
 	public void max(function f1) {
+
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Max;
 
 	}
 
 	@Override
 	public void min(function f1) {
+
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Min;
 
 	}
 
 	@Override
 	public void comp(function f1) {      
+
+		function f2 = f1.copy();	
+		this.left=this.copy();
 		if(this.right!=null) 
-		{
-				this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
+		{	
+			this.right = f2.copy();
+			//this.left = new ComplexFunction(this.op.toString(), this.left,this.right);
 		}
-		this.right=f1;
 		this.op=Operation.Comp;
 	}
 
@@ -311,7 +390,7 @@ public class ComplexFunction implements complex_function {
 		{
 			return this.right;
 		}
-		    return null;
+		return null;
 	}
 
 	@Override

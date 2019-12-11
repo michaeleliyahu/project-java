@@ -242,6 +242,14 @@ public class Monom implements function{
 	@Override
 	public boolean equals (Object m) 
 	{
+		if(m instanceof Polynom)
+		{
+			return m.equals(this);
+		}
+		if(m instanceof ComplexFunction)
+		{
+			return m.equals(this);
+		}
 		if(m instanceof Monom)
 		{
 			Monom m2 = (Monom) m;
@@ -280,7 +288,8 @@ public class Monom implements function{
 	@Override
 	public function copy() {
 		// TODO Auto-generated method stub
-		return null;
+		function f = new Monom(this);
+		return f;
 	}
 
 

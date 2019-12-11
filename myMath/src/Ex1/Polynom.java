@@ -126,7 +126,8 @@ public class Polynom implements Polynom_able{
 			}
 		}
 		if (!check) {
-			allMonoms.add(m1);
+			Monom m2 = new Monom(m1);
+			allMonoms.add(m2);
 		}
 
 		Comparator<Monom>sortMonom = new Monom_Comperator();
@@ -170,6 +171,16 @@ public class Polynom implements Polynom_able{
 	}
 	@Override
 	public boolean equals(Object p1) {
+		if(p1 instanceof ComplexFunction)
+		{
+			return p1.equals(this);
+		}
+		if(p1 instanceof Monom)
+		{
+			function t = new Polynom(p1.toString());
+			
+			return this.equals(t);
+		}
 		if(p1 instanceof Polynom_able)
 		{
 			Polynom_able p2 = (Polynom_able) p1;
@@ -237,7 +248,7 @@ public class Polynom implements Polynom_able{
 		return rootFinal;
 	}
 	@Override
-	public Polynom_able copy() {
+	public function copy() {
 		if(this.allMonoms.size()>0) {
 			Polynom_able a1=new Polynom(this.allMonoms.get(0).toString());
 			for(int i=1;i<this.allMonoms.size();i++) {
@@ -321,8 +332,10 @@ public class Polynom implements Polynom_able{
 	}
 	@Override
 	public void multiply(Monom m1) {
+		
 		for (int i = 0; i < allMonoms.size(); i++) {
-			allMonoms.get(i).multipy(m1);                                
+			
+		this.allMonoms.get(i).multipy(m1);                               
 		}
 	}
 	@Override

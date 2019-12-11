@@ -110,8 +110,11 @@ public class Function_GUI implements functions
 	}
 	@Override
 	public void saveToFile(String file) throws IOException {
-		// TODO Auto-generated method stub
-
+		//1) 2)
+		
+		//
+		String template = "f(x)=" ;
+		template+=arrF.get(0).toString();
 	}
 
 	@Override

@@ -4,6 +4,7 @@ public class ComplexFunction implements complex_function {
 	function right;
 	function left;
 	Operation op;
+	
 	public ComplexFunction(function left)
 	{
 		if(left==null)
@@ -21,6 +22,10 @@ public class ComplexFunction implements complex_function {
 	}
 	public ComplexFunction(String op, function left,function right)
 	{
+		if(left==null) 
+		{
+			throw new RuntimeException("left function cannot be null");
+		}
 		if(right!=null) 
 		{
 			function rt = right.copy();
@@ -51,11 +56,19 @@ public class ComplexFunction implements complex_function {
 		break;
 		case "comp":    this.op=Operation.Comp;	
 		break;
-		case "none":	this.op=Operation.None;
+		case "none":
+			if(this.right==null) 
+			{
+			this.op=Operation.None;
+			}
+			else 
+			{
+				throw new RuntimeException("none cannot be an operation ,if there's right function");
+			}
 		break;
-		default:    this.op=Operation.Error;
-		break;
-
+		default:    
+			this.op=Operation.Error;
+			throw new RuntimeException("invalid operation");
 		}
 	}
 	@Override

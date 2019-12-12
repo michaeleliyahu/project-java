@@ -341,6 +341,7 @@ public class ComplexFunction implements complex_function {
 
 	}
 
+	
 	@Override
 	public void comp(function f1) {      
 		function f2 = f1.copy();

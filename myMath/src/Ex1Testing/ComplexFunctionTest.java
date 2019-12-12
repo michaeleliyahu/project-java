@@ -116,14 +116,6 @@ class ComplexFunctionTest {
 		assertEquals(ans,p1.getOp());
 	}
 	@Test
-	void comptest() {
-
-	}
-	@Test
-	void copytest() {
-
-	}
-	@Test
 	void initFromStringtest() {
 		Monom f1 = new Monom(2,2);
 		Monom f2 = new Monom(3,3);
@@ -139,9 +131,7 @@ class ComplexFunctionTest {
 		Monom m1 = new Monom(2,2);
 		Monom m2 = new Monom(3,3);
 		ComplexFunction cf = new ComplexFunction("plus", m1,m2);
-		System.out.println(cf);
 		cf.mul(m2);
-		System.out.println(cf);
 		Polynom p = new Polynom();
 		p.add(m1);
 		p.add(m2);
@@ -151,8 +141,6 @@ class ComplexFunctionTest {
 		double dcf = cf.f(v);
 		double dd = Math.abs(dp-dcf);
 		if(dd>EPS) {
-			System.out.println(p+" at "+v+" = "+dp);
-			System.out.println(cf+" at "+v+" = "+dcf);
 			fail("ERR: should got the same value from: "+p+"should be: "+dp+"  and "+cf+"should be "+dcf);
 
 		}
@@ -207,8 +195,6 @@ class ComplexFunctionTest {
 			double d5 = cf5.f(x);
 			assertEquals(d,d5,EPS);
 		}
-		System.out.println(cf4);
-		System.out.println(cf5);
 	}
 
 }

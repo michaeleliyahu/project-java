@@ -1,6 +1,5 @@
 package Ex1Testing;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,11 +32,10 @@ import Ex1.functions;
 class Functions_GUITest {
 	public static void main(String[] a) {
 		functions data = FunctionsFactory();
-			int w=1000, h=600, res=200;
-			Range rx = new Range(-10,10);
-			Range ry = new Range(-5,15);
-			
-				data.drawFunctions(w,h,rx,ry,res);
+	//	int w=1000, h=600, res=200;
+	//	Range rx = new Range(-10,10);
+	//	Range ry = new Range(-5,15);
+//		data.drawFunctions(w,h,rx,ry,res);
 		String file = "function_file.txt";
 		String file2 = "function_file2.txt";
 		try {
@@ -47,14 +45,14 @@ class Functions_GUITest {
 			data.saveToFile(file2);
 		}
 		catch(Exception e) {e.printStackTrace();}
-
-		String JSON_param_file = "GUI_params.txt";				
+		
+		String JSON_param_file = "GUI_params.txt";
 		data.drawFunctions(JSON_param_file);
 	}
 	private functions _data=null;
-	//	@BeforeAll
-	//	static void setUpBeforeClass() throws Exception {
-	//	}
+//	@BeforeAll
+//	static void setUpBeforeClass() throws Exception {
+//	}
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -63,35 +61,24 @@ class Functions_GUITest {
 
 	//@Test
 	void testFunctions_GUI() {
-		//	fail("Not yet implemented");
+	//	fail("Not yet implemented");
 	}
 
-	@Test
+	//@Test
 	void testInitFromFile() {
-		Function_GUI read = new Function_GUI(); 
-		try {
-			read.initFromFile("text.txt");
-			read.saveToFile("text2.txt");
-		} catch (IOException e3) {
-			e3.printStackTrace();
-		}
-		for(int i = 0; i<read.arrF.size();i++) {
-		//	System.out.println(read.arrF.get(i).toString());
-		}
+	//	fail("Not yet implemented");
 	}
 
 	//@Test
 	void testSaveToFile() {
-
-
+		
+		
 	}
 
 	//@Test
 	void testDrawFunctions() {
-		int w=1000, h=600, res=200;
-		Range rx = new Range(-10,10);
-		Range ry = new Range(-5,15);
-		_data.drawFunctions(w, h, rx, ry, res);
+		//_data.drawFunctions();
+	//	fail("Not yet implemented");
 	}
 
 	@Test
@@ -110,9 +97,9 @@ class Functions_GUITest {
 		ComplexFunction cf3 = new ComplexFunction(p3);
 		for(int i=1;i<s3.length;i++) {
 			cf3.mul(new Polynom(s3[i]));
-			
 		}
-		ComplexFunction cf = new ComplexFunction("Plus", p1,p2);
+		
+		ComplexFunction cf = new ComplexFunction("plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("div", new Polynom("x +1"),cf3);
 		cf4.plus(new Monom("2"));
 		ans.add(cf.copy());
@@ -137,5 +124,4 @@ class Functions_GUITest {
 		ans.add(min);		
 		return ans;
 	}
-	
 }

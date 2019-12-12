@@ -54,11 +54,6 @@ public class Polynom implements Polynom_able{
 			temp = "-" ;
 			i++;
 		}
-		//		if(s.charAt(0)=='+')
-		//		{
-		//			temp = "+" ;
-		//			i++;
-		//		}
 		while(i<s.length()) {
 			if(s.charAt(i)!='+' &&  s.charAt(i)!='-')
 			{
@@ -113,6 +108,7 @@ public class Polynom implements Polynom_able{
 				allMonoms.add(m);
 			}
 		}
+		remove_Zeros();
 		Comparator<Monom>sortMonom = new Monom_Comperator();
 		allMonoms.sort(sortMonom);
 	}
@@ -129,6 +125,7 @@ public class Polynom implements Polynom_able{
 			Monom m2 = new Monom(m1);
 			allMonoms.add(m2);
 		}
+		remove_Zeros();
 
 		Comparator<Monom>sortMonom = new Monom_Comperator();
 		allMonoms.sort(sortMonom);
@@ -168,6 +165,14 @@ public class Polynom implements Polynom_able{
 			}
 		}
 		allMonoms=temp.allMonoms;
+		if(allMonoms.size()==0)
+		{
+			Monom m = new Monom(0,0);
+			allMonoms.add(m);
+		}
+	remove_Zeros();
+		Comparator<Monom>sortMonom = new Monom_Comperator();
+		allMonoms.sort(sortMonom);
 	}
 	@Override
 	public boolean equals(Object p1) {
@@ -219,7 +224,7 @@ public class Polynom implements Polynom_able{
 	public double root(double x0, double x1, double eps) {
 		double temp;
 		double rootFinal=0;
-		if(f(x0)*f(x1)<0)
+		if(f(x0)*f(x1)<=0)
 		{
 			if(f(x0)<f(x1))
 			{
@@ -336,6 +341,30 @@ public class Polynom implements Polynom_able{
 		for (int i = 0; i < allMonoms.size(); i++) {
 			
 		this.allMonoms.get(i).multipy(m1);                               
+		}
+		Comparator<Monom>sortMonom = new Monom_Comperator();
+		
+		if(allMonoms.size()==0)
+		{
+			Monom m = new Monom(0,0);
+			allMonoms.add(m);
+		}
+		remove_Zeros();
+		allMonoms.sort(sortMonom);
+	}
+	//private method to deal with spare zeros in the polynom
+	private void remove_Zeros() {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < allMonoms.size(); i++) {
+			if(allMonoms.size()==1 && allMonoms.get(0).isZero()==true)
+			{
+				
+			}
+			else if(allMonoms.get(i).isZero())
+			{
+				allMonoms.remove(i);
+				i = i-1;
+			}
 		}
 	}
 	@Override

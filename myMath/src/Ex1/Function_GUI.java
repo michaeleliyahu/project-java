@@ -96,8 +96,13 @@ public class Function_GUI implements functions
 			{
 				BufferedReader br = new BufferedReader(new FileReader(file));
 				line = br.readLine();
+				
 				while (line!= null) 
 				{
+					if(line==null || line.length()==0)
+					{
+						br.close();
+					}
 					line = line.substring(line.indexOf("f(x)=")+"f(x)=".length());
 					line=line.replaceAll("\\s", "");
 					ComplexFunction t = new ComplexFunction();
@@ -124,7 +129,6 @@ public class Function_GUI implements functions
 			while(index<arrF.size()) {
 				//0) 1) 2)
 				String ans =index+")" + template+arrF.get(index).toString() +"\n";
-//				ans = ans.replaceAll("\\s", "");
 				fr.write(ans);
 				index++;
 			}
@@ -189,14 +193,9 @@ public class Function_GUI implements functions
 			{
 			StdDraw.text(0.3,i , Double.toString(i));
 			}
-		}
-		
-		
-		//(Math.abs(rx.get_max())+Math.abs(rx.get_min()))/res;
-		double x0 = rx.get_min();
-		
-		for (int i = 0; i < x.length ; i++) {		
-			//x[i]=x0-1+(Math.abs(x0)+i)/10	;		
+		}	
+		double x0 = rx.get_min();	
+		for (int i = 0; i < x.length ; i++) {				
 			x[i] = x0;
 			x0=x0+(Math.abs(rx.get_max())+Math.abs(rx.get_min()))/resolution;
 		}
@@ -205,22 +204,21 @@ public class Function_GUI implements functions
 		// make color randoms
 		Color[] allColor = new Color[8];
 		allColor[0] = Color.green;
-		allColor[1] = Color.pink;
+		allColor[1] = Color.MAGENTA;
 		allColor[2] = Color.blue;
 		allColor[3] = Color.cyan;
 		allColor[4] = Color.darkGray;
-		allColor[5] = Color.magenta;
+		allColor[5] = Color.yellow;
 		allColor[6] = Color.red;
 		allColor[7] = Color.orange;
 
 		
 		
 		//get f.(x0)
-		StdDraw.setPenRadius(0.003);
+		StdDraw.setPenRadius(0.005);
 
 		for (int i = 0; i < y.length; i++) 
 		{
-
 			StdDraw.setPenColor(allColor[i%allColor.length]);
 
 			for (int j = 0; j < y[i].length; j++) {
@@ -238,8 +236,6 @@ public class Function_GUI implements functions
 				
 			}	
 		}
-		
-
 	}
 
 	@Override
@@ -272,7 +268,5 @@ public class Function_GUI implements functions
 			e.printStackTrace();
 			System.out.println("could not read json file");
 		}
-
 	}
-
 }

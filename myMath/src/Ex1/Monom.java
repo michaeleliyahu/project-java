@@ -64,7 +64,7 @@ public class Monom implements function{
 		
 		if(s.length()==0)
 		{
-			Monom m = new Monom(ZERO);
+			throw new RuntimeException("coefficient not proper ");
 		}
 		else {
 			s=s.replace('X', 'x');
@@ -195,7 +195,7 @@ public class Monom implements function{
 						int f = 1;
 						while (f<=afterx.length())
 						{
-							if (afterx.charAt(i)<'0'&&afterx.charAt(i)>'9')
+							if (afterx.charAt(i)<'0' && afterx.charAt(i)>'9')
 							{
 								throw new RuntimeException("power not proper ");				
 							}
@@ -282,8 +282,8 @@ public class Monom implements function{
 	private int _power;
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		function ans = new Monom(s);
+		return ans;
 	}
 	@Override
 	public function copy() {

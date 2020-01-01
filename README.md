@@ -1,5 +1,5 @@
 # readme
-The Ex1 project is a continuation of the Ex0 project. On the basis of the first project, the Ex1 project was expanded.
+The OOP project is a continuation of the Ex0 project. On the basis of the first project, the Ex1 project was expanded.
 
 # Main classes:
 1. DGraph

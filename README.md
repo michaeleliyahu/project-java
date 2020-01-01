@@ -2,80 +2,58 @@
 The Ex1 project is a continuation of the Ex0 project. On the basis of the first project, the Ex1 project was expanded.
 
 # Main classes:
-1. ComplexFunction
-2. Function_Gui
-3. Monom
-4. Polynom
-In the following lines, I will elaborate mainly about ComplexFunction and Function_Gui classes. I will explain which cases are valid and elaborate on the abnormal cases in some functions. 
+1. DGraph
+2. Edge
+3. Graph_Algo
+4. Graph_GUI
+5. Node
+In the following lines, I will explain which cases are valid and elaborate on the abnormal cases in some functions. 
 
-# ComplexFunction class: 
-Complex function is built by two functions and an operation.
+# DGraph class: 
+This class is an implements represents a directional weighted graph. The class has a road-system or communication network in mind - and should support a large number of nodes (over 100,000).
+
 
 List of functions:
-ComplexFunction, initFromString, copy, f, equals, getOp, left, right, plus, mul, max, min, div.
+node_data getNode, edge_data getEdge, addNode, connect, Collection, node_data removeNode, edge_data removeEdge, nodeSize, edgeSize, getMC
 
-Special cases:
-Function Name: Equals- checking if two functions are equals.
-For checking if two functions equals directly, you might check for infinity numbers. Because this option impassible, we check for 8 numbers. There are more details on gitub (issues).  
-# Function_GUI class:
-The class's purpose is to create the graph. we used in stdDraw function.
+ 
+# Edge class:
+This class is an implements represents the set of operations applicable on a directional edge(src,dest) in a (directional) weighted graph.
+
 
 List of functions:
-Add, addAll, clear, contains, containsAll, isEmpty, iterator, remove, removeAll, retainAll, size, toArray, initFromFile, saveToFile, drawFunctions.
-# Monom class:
-In mathematics, a monomial is, roughly speaking, a polynomial which has only one term.
+Edge, getSrc, getDest, getWeight, String getInfo, setInfo, getTag, setTag.
+
+
+# Graph_Algo class:
+This class is an implements represents the "regular" Graph Theory algorithms.
 
 List of functions:
-Monom, get_coefficient, get_power, derivative, f, isZero, add, multipy, toString, equals, set_coefficient, set_power, getNewZeroMonom, initFromString, copy.
-
-Conditions for proper monom:
-* The first letter could be a number or "x" or "-". 
-* In case that "x" is not the first letter, Before "x", must be a number. 
-* After "x", could nothing or "^". 
-* After "^", must be a number. 
-* The character "." could be only between numbers. 
-* Brackets cannot be used.
-* "x" cannot appear as power.
-* To write only a number, cannot appear an number in the power.
-*  In case that the user writes "X", the program will change it to "x".
-*  The coefficient is a real number. 
-*  The power  must be an Integer number.
-
-Examples of an incorrect Monom: 
-       1.     (3x)^2x      
-       2.     2^3
-       3.     2x^3.5
-Examples of an correct Monom: 
-       1.	    3x^2
-       2.   	8
-       3.   	2.5x^3
-
-Function Name: Add- Add between monomies
-In case that the powers are equals, the function will work. Else, There is an error.
+init,cleanGraf, save, isConnected, shortestPathDist, shortestPath, TSP, copy
 
 
 
-# Polynom class: 
-polynomial is an expression consisting of variables (also called indeterminates) and coefficients.
+
+# Graph_GUI class: 
+The class's purpose is to create the graph. we used in Jframe class.
+
 
 List of functions:
-Polynom, f, add, substract, multiply, equals, isZero, root, copy, derivative, toString, area, Iterator, initFromString.
-Conditions for proper polynomial:
-* All the condition of the monom.
-* Between monomies, There can only be add and subtraction(no multiplication or division).
+Window, initGUI, paint, actionPerformed.
 
 
-Examples of an incorrect Polynom: 
-    1.   3.x^2          
-    2.   (4x+3)
-    3.    3x*5x
+# Node class: 
+This class is an implements represents the set of operations applicable on a node (vertex) in a (directional) weighted graph.
 
-Examples of an correct Polynom: 
-    1.   3.6x^2          
-    2.   4x+3
-    3.   2x^3+5x
 
-Function Name: equals- Checking if two polynomials are equal
-In case that one of the polynoms is "null", An error appears.
+List of functions:
+getKey, Point3D getLocation, setLocation, getWeight, setWeight, String getInfo, setInfo, getTag, setTag.
+
+
+
+
+
+
+
 
 

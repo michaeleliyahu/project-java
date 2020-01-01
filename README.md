@@ -1,5 +1,5 @@
 # readme
-The OOP project is a continuation of the Ex0 project. On the basis of the first project, the Ex1 project was expanded.
+Over the last few weeks we have created a project that deals with Graph algorithms. Now, I will briefly elaborate and write key content of the project.
 
 # Main classes:
 1. DGraph
